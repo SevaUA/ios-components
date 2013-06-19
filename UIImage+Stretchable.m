@@ -10,10 +10,10 @@
 
 @implementation UIImage (Stretchable)
 
-- (UIImageView *)stretchableImageViewWithCapInsets:(UIEdgeInsets)capInsets {
+- (UIView *)stretchableImageViewWithCapInsets:(UIEdgeInsets)capInsets {
     CGRect frame = CGRectZero;
     frame.size = self.size;
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
+    UIView *imageView = [[UIView alloc] initWithFrame:frame];
     [self addCornersWithCapInsets:capInsets onView:imageView];
     [self addBottomAndTopWithCapInsets:capInsets onView:imageView];
     [self addLeftAndRightWithCapInsets:capInsets onView:imageView];

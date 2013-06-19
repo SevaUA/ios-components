@@ -10,6 +10,6 @@
 
 @interface UIImage (Stretchable)
 
-- (UIImageView *)stretchableImageViewWithCapInsets:(UIEdgeInsets)capInsets;
+- (UIView *)stretchableImageViewWithCapInsets:(UIEdgeInsets)capInsets;
 
 @end
