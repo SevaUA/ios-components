@@ -10,10 +10,10 @@
 
 @implementation UIImage (Stretchable)
 
-- (UIView *)stretchableImageViewWithCapInsets:(UIEdgeInsets)capInsets {
+- (UIImageView *)stretchableImageViewWithCapInsets:(UIEdgeInsets)capInsets {
     CGRect frame = CGRectZero;
     frame.size = self.size;
-    UIView *imageView = [[UIView alloc] initWithFrame:frame];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
     [self addCornersWithCapInsets:capInsets onView:imageView];
     [self addBottomAndTopWithCapInsets:capInsets onView:imageView];
     [self addLeftAndRightWithCapInsets:capInsets onView:imageView];
@@ -75,8 +75,13 @@
 }
 
 - (UIImageView *)getPartFrom:(CGRect)fromRect {
-    CGImageRef imageRef = CGImageCreateWithImageInRect([self CGImage], fromRect);
-    UIImage* subImage = [UIImage imageWithCGImage: imageRef];
+    CGRect scaledRect = fromRect;
+    scaledRect.origin.x = scaledRect.origin.x * self.scale;
+    scaledRect.origin.y = scaledRect.origin.y * self.scale;
+    scaledRect.size.width = scaledRect.size.width * self.scale;
+    scaledRect.size.height = scaledRect.size.height * self.scale;
+    CGImageRef imageRef = CGImageCreateWithImageInRect([self CGImage], scaledRect);
+    UIImage* subImage = [UIImage imageWithCGImage:imageRef scale:self.scale orientation:self.imageOrientation];
     CGImageRelease(imageRef);
     UIImageView *imageView = [[UIImageView alloc] initWithImage:subImage];
     imageView.frame = fromRect;
